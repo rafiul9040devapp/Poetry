@@ -15,7 +15,7 @@ class PoetryTitlePage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Peotry Title'),
       ),
-      body: FutureBuilder<PoetryTitle>(
+      body: FutureBuilder<List<String>>(
         future: getPoetryTitleFromApiAlternate(http.Client()),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -34,19 +34,19 @@ class PoetryTitlePage extends StatelessWidget {
                     'Connection timeout. Please check your internet connection.'),
               );
             } else {
-              return const Center(
-                child: Text('An Error has occurred'),
+              return  Center(
+                child: Text('An Error has occurred${snapshot.error.toString()}'),
               );
             }
-          } else if (snapshot.data == null || snapshot.data!.titles!.isEmpty) {
+          } else if (snapshot.data == null || snapshot.data!.isEmpty) {
             return const Center(
               child: Text('No poetry available.'),
             );
           } else {
             return ListView.separated(
-              itemCount: snapshot.data?.titles?.length ?? 0,
+              itemCount:  snapshot.data?.length ?? List.empty().length,
               itemBuilder: (context, index) {
-                final poetry = snapshot.data?.titles![index] ?? 'N/A';
+                final poetry = snapshot.data![index];
                 return Card(
                   child: ListTile(
                     title: Text(poetry),
