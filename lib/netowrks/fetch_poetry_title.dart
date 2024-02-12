@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:poetry/model/poetry_title_alternative.dart';
 import 'package:poetry/utils/constants.dart';
 
 import '../model/poetry_title.dart';
@@ -32,6 +33,29 @@ Future<List<String>> getPoetryTitleFromApiAlternate(http.Client client) async {
 
     if (response.statusCode == 200) {
       return PoetryTitle.fromJson(responseBody) ?? [];
+    } else if (response.statusCode >= 400 && response.statusCode < 500) {
+      throw http.ClientException(
+          '${responseBody['reason']} : ${responseBody['status']}');
+    } else if (response.statusCode >= 500 && response.statusCode < 600) {
+      throw Exception('Server error occurred: ${response.statusCode}');
+    } else {
+      throw Exception('Failed to fetch poetry titles: ${response.statusCode}');
+    }
+  } catch (e) {
+    throw Exception('Failed to fetch poetry titles: $e');
+  }
+}
+
+
+Future<PoetryTitleAlternative> getPoetryTitleFromApiAlternate2(http.Client client) async {
+  final url = Uri.parse('$BASE_URL$TITLE_END_POINT');
+
+  try {
+    final response = await client.get(url);
+    final responseBody = jsonDecode(response.body);
+
+    if (response.statusCode == 200) {
+      return PoetryTitleAlternative.fromJson(responseBody);
     } else if (response.statusCode >= 400 && response.statusCode < 500) {
       throw http.ClientException(
           '${responseBody['reason']} : ${responseBody['status']}');

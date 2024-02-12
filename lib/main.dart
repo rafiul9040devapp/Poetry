@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:poetry/screens/poetry_title_page.dart';
+import 'package:poetry/screens/poetry_title_page_alternative.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const PoetryTitlePage(),
+      home: const PoetryTitleAlternativePage(),
     );
   }
 }
