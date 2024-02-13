@@ -12,7 +12,7 @@ Future<PoetryDetails> getPoetryDetailsFromApi2(http.Client client, String endPoi
   print(endPoint);
   print(customEncode(endPoint));
 
-  final Uri uri = Uri.parse('$BASE_URL$TITLE_END_POINT/${customEncode(endPoint)}');
+  final Uri uri = Uri.parse('$baseUrl$title/${customEncode(endPoint)}');
 
   try {
     final http.Response response = await client.get(uri);
@@ -46,7 +46,7 @@ Future<PoetryDetails> getPoetryDetailsFromApi(
   print(endPoint);
   print(customEncode(endPoint));
 
-  final Uri uri = Uri.parse('$BASE_URL$TITLE_END_POINT/${customEncode(endPoint)}');
+  final Uri uri = Uri.parse('$baseUrl$title/${customEncode(endPoint)}');
 
   try {
     final http.Response response = await http.get(uri);
@@ -73,7 +73,7 @@ Future<PoetryDetails> getPoetryDetailsFromApi(
 
 Future<PoetryDetails> getPoetryDetailsFromApiAlternative(
     http.Client client, String endPoint) async {
-  final Uri uri = Uri.parse('$BASE_URL$TITLE_END_POINT/${customEncode(endPoint)}');
+  final Uri uri = Uri.parse('$baseUrl$title/${customEncode(endPoint)}');
 
   try {
     final http.Response response = await client.get(uri);

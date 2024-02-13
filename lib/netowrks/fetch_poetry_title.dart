@@ -25,7 +25,7 @@ import '../model/poetry_title.dart';
 // }
 
 Future<List<String>> getPoetryTitleFromApiAlternate(http.Client client) async {
-  final url = Uri.parse('$BASE_URL$TITLE_END_POINT');
+  final url = Uri.parse('$baseUrl$title');
 
   try {
     final response = await client.get(url);
@@ -48,7 +48,7 @@ Future<List<String>> getPoetryTitleFromApiAlternate(http.Client client) async {
 
 
 Future<PoetryTitleAlternative> getPoetryTitleFromApiAlternate2(http.Client client) async {
-  final url = Uri.parse('$BASE_URL$TITLE_END_POINT');
+  final url = Uri.parse('$baseUrl$title');
 
   try {
     final http.Response response = await client.get(url);

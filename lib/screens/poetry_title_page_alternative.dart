@@ -2,10 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:poetry/netowrks/fetch_poetry_title.dart';
+import 'package:poetry/netowrks/best_practices/poetry_api.dart';
 import 'package:http/http.dart' as http;
 import 'package:poetry/screens/poetry_details_page.dart';
-
 import '../model/poetry_title_alternative.dart';
 
 class PoetryTitleAlternativePage extends StatelessWidget {
@@ -13,12 +12,13 @@ class PoetryTitleAlternativePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final PoetryApi poetryApi = PoetryApi(http.Client());
     return Scaffold(
       appBar: AppBar(
         title: Text('Peotry Title'),
       ),
       body: FutureBuilder<PoetryTitleAlternative>(
-        future: getPoetryTitleFromApiAlternate2(http.Client()),
+        future: poetryApi.getPoetryTitle(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(

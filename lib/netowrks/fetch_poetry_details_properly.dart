@@ -6,7 +6,7 @@ import '../utils/constants.dart';
 import '../utils/helper.dart';
 
 Future<PoetryDetails> getPoetryDetails(http.Client client, String endPoint) async {
-  final Uri uri = Uri.parse('$BASE_URL$TITLE_END_POINT/${customEncode(endPoint)}');
+  final Uri uri = Uri.parse('$baseUrl$title/${customEncode(endPoint)}');
 
   try {
     final http.Response response = await client.get(uri);

@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-import '../model/poetry_details.dart';
-import '../utils/constants.dart';
-import '../utils/helper.dart';
+import '../../model/poetry_details.dart';
+import '../../utils/constants.dart';
+import '../../utils/helper.dart';
 
 class PoetryDetailsApi {
   final http.Client _client;
@@ -11,7 +11,7 @@ class PoetryDetailsApi {
   PoetryDetailsApi(this._client);
 
   Future<PoetryDetails> getPoetryDetails(String endPoint) async {
-    final Uri uri = Uri.parse('$BASE_URL$TITLE_END_POINT/${customEncode(endPoint)}');
+    final Uri uri = Uri.parse('$baseUrl$title/${customEncode(endPoint)}');
 
     try {
       final http.Response response = await _client.get(uri);
