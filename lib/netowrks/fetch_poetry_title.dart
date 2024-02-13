@@ -51,9 +51,9 @@ Future<PoetryTitleAlternative> getPoetryTitleFromApiAlternate2(http.Client clien
   final url = Uri.parse('$BASE_URL$TITLE_END_POINT');
 
   try {
-    final response = await client.get(url);
-    final responseBody = jsonDecode(response.body);
-
+    final http.Response response = await client.get(url);
+    final String utfResponseBody = utf8.decode(response.bodyBytes);
+    final dynamic responseBody = jsonDecode(utfResponseBody);
     if (response.statusCode == 200) {
       return PoetryTitleAlternative.fromJson(responseBody);
     } else if (response.statusCode >= 400 && response.statusCode < 500) {

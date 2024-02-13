@@ -7,6 +7,8 @@ import 'package:poetry/netowrks/fetch_poetry_details.dart';
 import 'package:http/http.dart' as http;
 import 'package:poetry/utils/helper.dart';
 
+import '../netowrks/fetch_poetry_details_properly.dart';
+
 class PoetryDetailsPage extends StatelessWidget {
 
   final String poetryTitle;
@@ -16,7 +18,7 @@ class PoetryDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<PoetryDetails>(
-      future: getPoetryDetailsFromApi(http.Client(), removeSpecialCharacters(poetryTitle)),
+      future: getPoetryDetails(http.Client(), poetryTitle),
       builder: (context,snapshot){
         if(snapshot.connectionState == ConnectionState.waiting){
           return Center(
