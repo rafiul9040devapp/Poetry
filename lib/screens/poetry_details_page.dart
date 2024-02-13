@@ -25,12 +25,17 @@ class PoetryDetailsPage extends StatelessWidget {
       future: poetryDetailsApi.getPoetryDetails(poetryTitle),
       builder: (context,snapshot){
         if(snapshot.connectionState == ConnectionState.waiting){
-          return Center(
-            child: SpinKitWaveSpinner(
-              color: Colors.blueAccent.shade200,
-              waveColor: Colors.blueAccent.shade100,
-              trackColor: Colors.white12,
-              size: 100,
+          return Container(
+            height: MediaQuery.sizeOf(context).height,
+            width: MediaQuery.sizeOf(context).width,
+            color: Colors.white,
+            child: Center(
+              child: SpinKitWaveSpinner(
+                color: Colors.blueAccent.shade200,
+                waveColor: Colors.blueAccent.shade100,
+                trackColor: Colors.white12,
+                size: 100,
+              ),
             ),
           );
         }else if(snapshot.hasError){
@@ -50,11 +55,16 @@ class PoetryDetailsPage extends StatelessWidget {
           );
         }else{
           return Scaffold(
-            appBar: AppBar(
-              title: Text(snapshot.data?.title ?? 'N/A'),
-            ),
+            appBar: AppBar(),
             body: Center(
-              child: Text('Author: ${snapshot.data?.author ?? 'N/A'}'),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(snapshot.data?.title ?? 'N/A'),
+                  Text('Author: ${snapshot.data?.author ?? 'N/A'}'),
+                ],
+              ),
             ),
           );
         }
