@@ -4,11 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:poetry/model/poetry_details.dart';
 import 'package:poetry/netowrks/best_practices/poetry_details_api.dart';
-import 'package:poetry/netowrks/fetch_poetry_details.dart';
 import 'package:http/http.dart' as http;
-import 'package:poetry/utils/helper.dart';
 
-import '../netowrks/fetch_poetry_details_properly.dart';
 
 class PoetryDetailsPage extends StatelessWidget {
 

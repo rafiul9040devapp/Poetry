@@ -33,8 +33,6 @@ class PoetryApi {
   }
 
 
-
-
   void _handleError(dynamic responseBody, int statusCode) {
     if (statusCode >= 400 && statusCode < 500) {
       throw http.ClientException(

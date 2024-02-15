@@ -1,7 +1,6 @@
 class PoetryTitleAlternative {
   PoetryTitleAlternative({
     this.titles,});
-
   PoetryTitleAlternative.fromJson(dynamic json) {
     titles = json['titles'] != null ? json['titles'].cast<String>() : [];
   }
@@ -12,5 +11,4 @@ class PoetryTitleAlternative {
     map['titles'] = titles;
     return map;
   }
-
 }
