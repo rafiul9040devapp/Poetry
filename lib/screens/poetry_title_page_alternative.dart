@@ -39,19 +39,19 @@ class PoetryTitleAlternativePage extends StatelessWidget {
                 }
               },
             )
-          : FutureBuilder<PoetryOfAuthors>(
-              future: authorApi.getPoetryOfAuthors(authorName!),
+          : FutureBuilder<List<String>>(
+              future: authorApi.getPoetryOfAuthorsAlternative(authorName!),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return _buildLoadingWidget();
                 } else if (snapshot.hasError) {
                   return _buildErrorWidget(snapshot);
                 } else if (snapshot.data == null ||
-                    snapshot.data!.title!.isEmpty) {
+                    snapshot.data!.isEmpty) {
                   return _buildNoPoetryAvailableWidget();
                 } else {
                   return _buildPoetryListWidget(
-                      snapshot.data?.title as List<String>);
+                      snapshot.data ?? [] );
                 }
               },
             ),

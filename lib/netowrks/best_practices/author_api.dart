@@ -47,6 +47,25 @@ class AuthorApi {
     }
     throw Exception('Unable to Fetch Poetry Of Author');
   }
+
+  Future<List<String>> getPoetryOfAuthorsAlternative(String authorName) async {
+    final uri = Uri.parse('$baseUrl$author/${customEncode(authorName)}$title');
+
+    try {
+      final http.Response response = await http.get(uri);
+      final String utfResponseBody = utf8.decode(response.bodyBytes);
+      final List<dynamic> responseBody = jsonDecode(utfResponseBody);
+
+      if (response.statusCode == 200) {
+        return responseBody.map((item) => item['title'] as String).toList();
+      } else {
+        _handleError(responseBody, response.statusCode);
+      }
+    } catch (e) {
+      throw Exception('Unable to Fetch Poetry Of Author $e');
+    }
+    throw Exception('Unable to Fetch Poetry Of Author');
+  }
 }
 
 Author _parseResponseForAuthor(dynamic responseBody) {
