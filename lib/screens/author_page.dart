@@ -4,8 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:poetry/model/author.dart';
+import 'package:poetry/model/poetry_title_alternative.dart';
 import 'package:poetry/netowrks/best_practices/author_api.dart';
 import 'package:http/http.dart' as http;
+import 'package:poetry/screens/poetry_title_page_alternative.dart';
 
 
 class AuthorPage extends StatefulWidget {
@@ -72,6 +74,7 @@ class _AuthorPageState extends State<AuthorPage> {
       child: const Center(
         child: Text(
           'Unknown Problem\nConnected to a terminated asynchronous computation.',
+          textAlign: TextAlign.center,
         ),
       ),
     );
@@ -127,8 +130,11 @@ class _AuthorPageState extends State<AuthorPage> {
       itemCount: list.length,
       itemBuilder: (context, index) {
         final author = list[index];
-        return ListTile(
-          title: Text(author),
+        return InkWell(
+          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => PoetryTitleAlternativePage(authorName: author,))),
+          child: ListTile(
+            title: Text(author),
+          ),
         );
       },
       separatorBuilder: (context, index) {
