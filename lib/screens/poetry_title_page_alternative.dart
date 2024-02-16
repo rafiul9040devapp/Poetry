@@ -10,9 +10,8 @@ import 'package:poetry/netowrks/best_practices/poetry_api.dart';
 import 'package:poetry/screens/poetry_details_page.dart';
 
 class PoetryTitleAlternativePage extends StatelessWidget {
+  const PoetryTitleAlternativePage({super.key, this.authorName});
   final String? authorName;
-
-  const PoetryTitleAlternativePage({Key? key, this.authorName});
 
   @override
   Widget build(BuildContext context) {
