@@ -46,13 +46,14 @@ class PoetryDetailsPage extends StatelessWidget {
               child: Text('An Error has occurred${snapshot.error.toString()}'),
             );
           }
-        }else if(snapshot.data ==null || snapshot.data!.lines!.isEmpty){
+        }else if(snapshot.data ==null || snapshot.data!.lines.isEmpty){
           return  Center(
             child: Text('No poetry details is available.${snapshot.error.toString()}'),
           );
         }else{
-          return Scaffold(
-            appBar: AppBar(),
+          return
+            Scaffold(
+              appBar: AppBar(),
             body: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -63,7 +64,7 @@ class PoetryDetailsPage extends StatelessWidget {
                 ],
               ),
             ),
-          );
+                      );
         }
       },
     );

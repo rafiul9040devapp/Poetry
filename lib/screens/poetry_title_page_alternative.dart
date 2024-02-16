@@ -24,37 +24,90 @@ class PoetryTitleAlternativePage extends StatelessWidget {
         title: const Text('Poetry Title'),
       ),
       body: authorName == null
-          ? FutureBuilder<PoetryTitleAlternative>(
+          ? _buildFutureBuilder<PoetryTitleAlternative>(
               future: poetryApi.getPoetryTitle(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return _buildLoadingWidget();
-                } else if (snapshot.hasError) {
-                  return _buildErrorWidget(snapshot);
-                } else if (snapshot.data == null ||
-                    snapshot.data!.titles!.isEmpty) {
+              buildWidget: (snapshot) {
+                if (snapshot.data == null || snapshot.data!.titles!.isEmpty) {
                   return _buildNoPoetryAvailableWidget();
                 } else {
-                  return _buildPoetryListWidget(snapshot.data?.titles ?? []);
+                  return _buildPoetryListWidget(snapshot.data!.titles ?? List.empty());
                 }
               },
             )
-          : FutureBuilder<List<String>>(
+          : _buildFutureBuilder<List<String>>(
               future: authorApi.getPoetryOfAuthorsAlternative(authorName!),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return _buildLoadingWidget();
-                } else if (snapshot.hasError) {
-                  return _buildErrorWidget(snapshot);
-                } else if (snapshot.data == null ||
-                    snapshot.data!.isEmpty) {
+              buildWidget: (snapshot) {
+                if (snapshot.data == null || snapshot.data!.isEmpty) {
                   return _buildNoPoetryAvailableWidget();
                 } else {
-                  return _buildPoetryListWidget(
-                      snapshot.data ?? [] );
+                  if (snapshot.data!.length == 1) {
+                    Future.delayed(Duration.zero, () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PoetryDetailsPage(
+                            poetryTitle: snapshot.data?[0] ?? '',
+                          ),
+                        ),
+                      );
+                    });
+                    return SizedBox(); // Return an empty widget
+                  }
+                  return _buildPoetryListWidget(snapshot.data ?? []);
                 }
               },
             ),
+
+      // body: authorName == null
+      //     ? FutureBuilder<PoetryTitleAlternative>(
+      //         future: poetryApi.getPoetryTitle(),
+      //         builder: (context, snapshot) {
+      //           if (snapshot.connectionState == ConnectionState.waiting) {
+      //             return _buildLoadingWidget();
+      //           } else if (snapshot.hasError) {
+      //             return _buildErrorWidget(snapshot);
+      //           } else if (snapshot.data == null ||
+      //               snapshot.data!.titles!.isEmpty) {
+      //             return _buildNoPoetryAvailableWidget();
+      //           } else {
+      //             return _buildPoetryListWidget(snapshot.data?.titles ?? []);
+      //           }
+      //         },
+      //       )
+      //     : FutureBuilder<List<String>>(
+      //         future: authorApi.getPoetryOfAuthorsAlternative(authorName!),
+      //         builder: (context, snapshot) {
+      //           if (snapshot.connectionState == ConnectionState.waiting) {
+      //             return _buildLoadingWidget();
+      //           } else if (snapshot.hasError) {
+      //             return _buildErrorWidget(snapshot);
+      //           } else if (snapshot.data == null ||
+      //               snapshot.data!.isEmpty) {
+      //             return _buildNoPoetryAvailableWidget();
+      //           } else {
+      //             return _buildPoetryListWidget(
+      //                 snapshot.data ?? [] );
+      //           }
+      //         },
+      //       ),
+    );
+  }
+
+  Widget _buildFutureBuilder<T>({
+    required Future<T> future,
+    required Widget Function(AsyncSnapshot<T>) buildWidget,
+  }) {
+    return FutureBuilder<T>(
+      future: future,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return _buildLoadingWidget();
+        } else if (snapshot.hasError) {
+          return _buildErrorWidget(snapshot);
+        } else {
+          return buildWidget(snapshot);
+        }
+      },
     );
   }
 
